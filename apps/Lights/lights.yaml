@@ -1,0 +1,2 @@
+light_manager:
+  class: Vikingen.Home.Automations.LightManager

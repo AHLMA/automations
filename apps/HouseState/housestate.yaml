@@ -1,0 +1,8 @@
+house_state_manager:
+    class: HouseStateManager
+    elevation_evening: 6.0
+    elevation_morning: -1.0
+    weekday_night: "20:00:00"
+    weekend_night: "20:00:00"
+    day_time: "04:00:00"
+    house_state_input_select: input_select.house_mode_select

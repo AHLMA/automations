@@ -1,0 +1,2 @@
+welcome_home:
+  class: Vikingen.Home.Automations.WelcomeHomeApp
