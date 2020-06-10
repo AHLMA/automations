@@ -26,8 +26,15 @@ namespace Vikingen.Home.Automations
             TurnOffFlowerLamps();
             TurnOnFlowerLamps();
             ManageNightlightHallway();
+            ManageLightsVardagsrum();
             //RunEveryMinute(0, () => Toggletestlight());
 
+        }
+        private void ManageLightsVardagsrum()
+        {
+            RunDaily("18:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOn());
+            RunDaily("23:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOff());
+            Log($"Turn On/Off Lights vardagsrum {DateTime.Now}");
         }
         private void ManageNightlightHallway()
         {
