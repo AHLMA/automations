@@ -16,6 +16,7 @@ namespace Vikingen.Home.Automations
     {
         #region -- Config properties --
         public bool NightTime = false;
+
         #endregion
 
         /// <summary>
@@ -27,13 +28,21 @@ namespace Vikingen.Home.Automations
             TurnOnFlowerLamps();
             ManageNightlightHallway();
             ManageLightsVardagsrum();
-            //RunEveryMinute(0, () => Toggletestlight());
+           // Testlight();
 
+        }
+        private void Testlight()
+        {
+            //Entity("switch.vardagsrum_fonster_tv").TurnOff();
+            //Entity("light.testlampa").TurnOn();
+            Entity("light.vardagsrum_fonster").TurnOn();
         }
         private void ManageLightsVardagsrum()
         {
             RunDaily("18:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOn());
-            RunDaily("23:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOff());
+            RunDaily("18:00:00", () => Entity("light.vardagsrum_fonster").TurnOn());
+            RunDaily("00:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOff());
+            RunDaily("00:00:00", () => Entity("light.vardagsrum_fonster").TurnOff());
             Log($"Turn On/Off Lights vardagsrum {DateTime.Now}");
         }
         private void ManageNightlightHallway()
@@ -51,7 +60,7 @@ namespace Vikingen.Home.Automations
                     );
 
             Entity("binary_sensor.hall_pir").StateChanges
-                .Where(e => e.Old?.State == "on" && e.New?.State == "off")
+                .Where(e => e.Old?.State == "on" && e.New?.State == "off" && NightTime)
                 .NDSameStateFor(TimeSpan.FromMinutes(10))
                 .Subscribe(
                     e =>
@@ -90,7 +99,7 @@ namespace Vikingen.Home.Automations
                     Entity("switch.kok_kruka").TurnOn();
                     NightTime = false;
                 });
-            Log($"urn Off Flowerlights {DateTime.Now}");
+            Log($"Turn Off Flowerlights {DateTime.Now}");
 
         }
 
