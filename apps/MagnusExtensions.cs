@@ -1,6 +1,6 @@
 
 
-using JoySoftware.HomeAssistant.NetDaemon.Common.Reactive;
+using NetDaemon.Common.Reactive;
 
 namespace Vikingen.Home.Automations
 {

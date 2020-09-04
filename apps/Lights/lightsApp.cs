@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Reactive.Linq;
-using JoySoftware.HomeAssistant.NetDaemon.Common.Reactive;
+using NetDaemon.Common.Reactive;
 
 
 namespace Vikingen.Home.Automations
