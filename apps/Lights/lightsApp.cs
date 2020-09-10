@@ -28,14 +28,23 @@ namespace Vikingen.Home.Automations
             TurnOnFlowerLamps();
             ManageNightlightHallway();
             ManageLightsVardagsrum();
-           // Testlight();
+            ManageLightsKok();
+            //Testlight();
 
         }
         private void Testlight()
         {
             //Entity("switch.vardagsrum_fonster_tv").TurnOff();
-            //Entity("light.testlampa").TurnOn();
-            Entity("light.vardagsrum_fonster").TurnOn();
+            //Entity("light.testlampa").TurnOff();
+            //Entity("light.vardagsrum_fonster").TurnOn();
+            //Entity("switch.kok_fonsterlampor").TurnOff();
+        }
+
+        private void ManageLightsKok()
+        {
+            RunDaily("18:00:00", () => Entity("switch.kok_fonsterlampor").TurnOn());
+            RunDaily("00:00:00", () => Entity("switch.kok_fonsterlampor").TurnOff());
+            Log($"Turn On/Off Lights vardagsrum {DateTime.Now}");
         }
         private void ManageLightsVardagsrum()
         {
@@ -82,7 +91,6 @@ namespace Vikingen.Home.Automations
                 .Subscribe(s =>
                 {
                     Entity("switch.hall_lampa").TurnOff();
-                    Entity("switch.kok_kruka").TurnOff();
                     NightTime = true;
                 });
             Log($"Turn Off Flowerlights {DateTime.Now}");
