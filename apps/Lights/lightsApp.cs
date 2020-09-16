@@ -10,7 +10,8 @@ namespace Vikingen.Home.Automations
     ///     Manage default lights and implements the following use-cases:
     ///         - Flowerlamps turn on and off depending on housestate (Dag och Natt)
     ///         - Turns on nightlight in hallway when movement, turns off in 15 minutes
-    ///      
+    ///         - Manage kitchen lights
+    ///         - Manage Livingroom lights
     /// </summary>
     public class LightManager : NetDaemonRxApp
     {
@@ -29,6 +30,8 @@ namespace Vikingen.Home.Automations
             ManageNightlightHallway();
             ManageLightsVardagsrum();
             ManageLightsKok();
+            ManageLightsMellanrum();
+            ManageLightsKontor();
             //Testlight();
 
         }
@@ -38,13 +41,29 @@ namespace Vikingen.Home.Automations
             //Entity("light.testlampa").TurnOff();
             //Entity("light.vardagsrum_fonster").TurnOn();
             //Entity("switch.kok_fonsterlampor").TurnOff();
+            //Entity("light.mellanrummet_fonster").TurnOff();
+            //Entity("light.mellanrummet_tak").TurnOff();
+            //Entity("light.kontoret_tak").TurnOff();
+            //Entity("light.kontoret_fonster").TurnOff();
+        }
+        private void ManageLightsKontor()
+        {
+            RunDaily("18:00:00", () => Entity("light.kontoret_fonster").TurnOn());
+            RunDaily("00:00:00", () => Entity("light.kontoret_fonsterr").TurnOff());
+
+        }
+        private void ManageLightsMellanrum()
+        {
+            RunDaily("18:00:00", () => Entity("light.mellanrummet_fonster").TurnOn());
+            RunDaily("00:00:00", () => Entity("light.mellanrummet_fonster").TurnOff());
+            Log($"Turn On/Off Lights Kitchen {DateTime.Now}");
         }
 
         private void ManageLightsKok()
         {
             RunDaily("18:00:00", () => Entity("switch.kok_fonsterlampor").TurnOn());
             RunDaily("00:00:00", () => Entity("switch.kok_fonsterlampor").TurnOff());
-            Log($"Turn On/Off Lights vardagsrum {DateTime.Now}");
+            Log($"Turn On/Off Lights Kitchen {DateTime.Now}");
         }
         private void ManageLightsVardagsrum()
         {
@@ -70,7 +89,7 @@ namespace Vikingen.Home.Automations
 
             Entity("binary_sensor.hall_pir").StateChanges
                 .Where(e => e.Old?.State == "on" && e.New?.State == "off" && NightTime)
-                .NDSameStateFor(TimeSpan.FromMinutes(10))
+                .NDSameStateFor(TimeSpan.FromMinutes(5))
                 .Subscribe(
                     e =>
                     {
