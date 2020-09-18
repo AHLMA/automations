@@ -9,9 +9,11 @@ namespace Vikingen.Home.Automations
     /// <summary>
     ///     Manage default lights and implements the following use-cases:
     ///         - Flowerlamps turn on and off depending on housestate (Dag och Natt)
-    ///         - Turns on nightlight in hallway when movement, turns off in 15 minutes
+    ///         - Turns on nightlight in hallway when movement, turns off in 5 minutes
     ///         - Manage kitchen lights
     ///         - Manage Livingroom lights
+    ///         - Manage Office lights
+    ///         - Manage InBetweenrom lights
     /// </summary>
     public class LightManager : NetDaemonRxApp
     {
@@ -48,29 +50,29 @@ namespace Vikingen.Home.Automations
         }
         private void ManageLightsKontor()
         {
-            RunDaily("18:00:00", () => Entity("light.kontoret_fonster").TurnOn());
-            RunDaily("00:00:00", () => Entity("light.kontoret_fonsterr").TurnOff());
+            RunDaily("17:59:00", () => Entity("light.kontoret_fonster").TurnOn());
+            RunDaily("23:59:00", () => Entity("light.kontoret_fonsterr").TurnOff());
 
         }
         private void ManageLightsMellanrum()
         {
             RunDaily("18:00:00", () => Entity("light.mellanrummet_fonster").TurnOn());
-            RunDaily("00:00:00", () => Entity("light.mellanrummet_fonster").TurnOff());
+            RunDaily("23:59:30", () => Entity("light.mellanrummet_fonster").TurnOff());
             Log($"Turn On/Off Lights Kitchen {DateTime.Now}");
         }
 
         private void ManageLightsKok()
         {
-            RunDaily("18:00:00", () => Entity("switch.kok_fonsterlampor").TurnOn());
-            RunDaily("00:00:00", () => Entity("switch.kok_fonsterlampor").TurnOff());
+            RunDaily("18:00:30", () => Entity("switch.kok_fonsterlampor").TurnOn());
+            RunDaily("23:59:45", () => Entity("switch.kok_fonsterlampor").TurnOff());
             Log($"Turn On/Off Lights Kitchen {DateTime.Now}");
         }
         private void ManageLightsVardagsrum()
         {
-            RunDaily("18:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOn());
-            RunDaily("18:00:00", () => Entity("light.vardagsrum_fonster").TurnOn());
-            RunDaily("00:00:00", () => Entity("switch.vardagsrum_fonster_tv").TurnOff());
-            RunDaily("00:00:00", () => Entity("light.vardagsrum_fonster").TurnOff());
+            RunDaily("18:00:45", () => Entity("switch.vardagsrum_fonster_tv").TurnOn());
+            RunDaily("23:59:55", () => Entity("switch.vardagsrum_fonster_tv").TurnOff());
+            RunDaily("18:00:50", () => Entity("light.vardagsrum_fonster").TurnOn());
+            RunDaily("23:59:57", () => Entity("light.vardagsrum_fonster").TurnOff());
             Log($"Turn On/Off Lights vardagsrum {DateTime.Now}");
         }
         private void ManageNightlightHallway()
