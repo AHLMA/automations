@@ -10,18 +10,129 @@ namespace Netdaemon.Generated.Reactive
 {
     public class GeneratedAppBase : NetDaemonRxApp
     {
+        public InputSelectEntities InputSelect => new InputSelectEntities(this);
+        public SensorEntities Sensor => new SensorEntities(this);
         public SwitchEntities Switch => new SwitchEntities(this);
-        public BinarySensorEntities BinarySensor => new BinarySensorEntities(this);
-        public MediaPlayerEntities MediaPlayer => new MediaPlayerEntities(this);
-        public ZoneEntities Zone => new ZoneEntities(this);
         public LightEntities Light => new LightEntities(this);
-        public PersonEntities Person => new PersonEntities(this);
+        public CameraEntities Camera => new CameraEntities(this);
         public WeatherEntities Weather => new WeatherEntities(this);
         public NetdaemonEntities Netdaemon => new NetdaemonEntities(this);
-        public SensorEntities Sensor => new SensorEntities(this);
         public SunEntities Sun => new SunEntities(this);
+        public MediaPlayerEntities MediaPlayer => new MediaPlayerEntities(this);
+        public PersonEntities Person => new PersonEntities(this);
         public PersistentNotificationEntities PersistentNotification => new PersistentNotificationEntities(this);
-        public InputSelectEntities InputSelect => new InputSelectEntities(this);
+        public BinarySensorEntities BinarySensor => new BinarySensorEntities(this);
+        public ZoneEntities Zone => new ZoneEntities(this);
+    }
+
+    public partial class InputSelectEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public InputSelectEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
+
+        public void Reload(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            DaemonRxApp.CallService("input_select", "reload", serviceData);
+        }
+
+        public void SelectOption(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("input_select", "select_option", serviceData);
+        }
+
+        public void SelectNext(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("input_select", "select_next", serviceData);
+        }
+
+        public void SelectPrevious(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("input_select", "select_previous", serviceData);
+        }
+
+        public void SetOptions(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("input_select", "set_options", serviceData);
+        }
+    }
+
+    public partial class SensorEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public SensorEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
     }
 
     public partial class SwitchEntity : RxEntity
@@ -37,7 +148,7 @@ namespace Netdaemon.Generated.Reactive
         }
     }
 
-    public partial class BinarySensorEntity : RxEntity
+    public partial class LightEntity : RxEntity
     {
         public string EntityId => EntityIds.First();
         public string? Area => DaemonRxApp.State(EntityId)?.Area;
@@ -45,7 +156,144 @@ namespace Netdaemon.Generated.Reactive
         public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
         public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
         public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public BinarySensorEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        public LightEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
+    }
+
+    public partial class CameraEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public CameraEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
+
+        public void EnableMotionDetection(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("camera", "enable_motion_detection", serviceData);
+        }
+
+        public void DisableMotionDetection(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("camera", "disable_motion_detection", serviceData);
+        }
+
+        public void Snapshot(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("camera", "snapshot", serviceData);
+        }
+
+        public void PlayStream(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("camera", "play_stream", serviceData);
+        }
+
+        public void Record(dynamic? data = null)
+        {
+            var serviceData = new FluentExpandoObject();
+            if (data is ExpandoObject)
+            {
+                serviceData.CopyFrom(data);
+            }
+            else if (data is object)
+            {
+                var expObject = ((object)data).ToExpandoObject();
+                serviceData.CopyFrom(expObject);
+            }
+
+            serviceData["entity_id"] = EntityId;
+            DaemonRxApp.CallService("camera", "record", serviceData);
+        }
+    }
+
+    public partial class WeatherEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public WeatherEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
+    }
+
+    public partial class NetdaemonEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public NetdaemonEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
+    }
+
+    public partial class SunEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public SunEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
         {
         }
     }
@@ -335,48 +583,6 @@ namespace Netdaemon.Generated.Reactive
         }
     }
 
-    public partial class ZoneEntity : RxEntity
-    {
-        public string EntityId => EntityIds.First();
-        public string? Area => DaemonRxApp.State(EntityId)?.Area;
-        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
-        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
-        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
-        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public ZoneEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
-        {
-        }
-
-        public void Reload(dynamic? data = null)
-        {
-            var serviceData = new FluentExpandoObject();
-            if (data is ExpandoObject)
-            {
-                serviceData.CopyFrom(data);
-            }
-            else if (data is object)
-            {
-                var expObject = ((object)data).ToExpandoObject();
-                serviceData.CopyFrom(expObject);
-            }
-
-            DaemonRxApp.CallService("zone", "reload", serviceData);
-        }
-    }
-
-    public partial class LightEntity : RxEntity
-    {
-        public string EntityId => EntityIds.First();
-        public string? Area => DaemonRxApp.State(EntityId)?.Area;
-        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
-        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
-        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
-        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public LightEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
-        {
-        }
-    }
-
     public partial class PersonEntity : RxEntity
     {
         public string EntityId => EntityIds.First();
@@ -403,58 +609,6 @@ namespace Netdaemon.Generated.Reactive
             }
 
             DaemonRxApp.CallService("person", "reload", serviceData);
-        }
-    }
-
-    public partial class WeatherEntity : RxEntity
-    {
-        public string EntityId => EntityIds.First();
-        public string? Area => DaemonRxApp.State(EntityId)?.Area;
-        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
-        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
-        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
-        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public WeatherEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
-        {
-        }
-    }
-
-    public partial class NetdaemonEntity : RxEntity
-    {
-        public string EntityId => EntityIds.First();
-        public string? Area => DaemonRxApp.State(EntityId)?.Area;
-        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
-        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
-        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
-        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public NetdaemonEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
-        {
-        }
-    }
-
-    public partial class SensorEntity : RxEntity
-    {
-        public string EntityId => EntityIds.First();
-        public string? Area => DaemonRxApp.State(EntityId)?.Area;
-        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
-        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
-        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
-        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public SensorEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
-        {
-        }
-    }
-
-    public partial class SunEntity : RxEntity
-    {
-        public string EntityId => EntityIds.First();
-        public string? Area => DaemonRxApp.State(EntityId)?.Area;
-        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
-        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
-        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
-        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public SunEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
-        {
         }
     }
 
@@ -519,7 +673,7 @@ namespace Netdaemon.Generated.Reactive
         }
     }
 
-    public partial class InputSelectEntity : RxEntity
+    public partial class BinarySensorEntity : RxEntity
     {
         public string EntityId => EntityIds.First();
         public string? Area => DaemonRxApp.State(EntityId)?.Area;
@@ -527,7 +681,20 @@ namespace Netdaemon.Generated.Reactive
         public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
         public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
         public dynamic? State => DaemonRxApp.State(EntityId)?.State;
-        public InputSelectEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        public BinarySensorEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
+        {
+        }
+    }
+
+    public partial class ZoneEntity : RxEntity
+    {
+        public string EntityId => EntityIds.First();
+        public string? Area => DaemonRxApp.State(EntityId)?.Area;
+        public dynamic? Attribute => DaemonRxApp.State(EntityId)?.Attribute;
+        public DateTime LastChanged => DaemonRxApp.State(EntityId).LastChanged;
+        public DateTime LastUpdated => DaemonRxApp.State(EntityId).LastUpdated;
+        public dynamic? State => DaemonRxApp.State(EntityId)?.State;
+        public ZoneEntity(INetDaemonReactive daemon, IEnumerable<string> entityIds): base(daemon, entityIds)
         {
         }
 
@@ -544,76 +711,37 @@ namespace Netdaemon.Generated.Reactive
                 serviceData.CopyFrom(expObject);
             }
 
-            DaemonRxApp.CallService("input_select", "reload", serviceData);
+            DaemonRxApp.CallService("zone", "reload", serviceData);
         }
+    }
 
-        public void SelectOption(dynamic? data = null)
+    public partial class InputSelectEntities
+    {
+        private readonly NetDaemonRxApp _app;
+        public InputSelectEntities(NetDaemonRxApp app)
         {
-            var serviceData = new FluentExpandoObject();
-            if (data is ExpandoObject)
-            {
-                serviceData.CopyFrom(data);
-            }
-            else if (data is object)
-            {
-                var expObject = ((object)data).ToExpandoObject();
-                serviceData.CopyFrom(expObject);
-            }
-
-            serviceData["entity_id"] = EntityId;
-            DaemonRxApp.CallService("input_select", "select_option", serviceData);
+            _app = app;
         }
 
-        public void SelectNext(dynamic? data = null)
+        public InputSelectEntity HouseModeSelect => new InputSelectEntity(_app, new string[]{"input_select.house_mode_select"});
+    }
+
+    public partial class SensorEntities
+    {
+        private readonly NetDaemonRxApp _app;
+        public SensorEntities(NetDaemonRxApp app)
         {
-            var serviceData = new FluentExpandoObject();
-            if (data is ExpandoObject)
-            {
-                serviceData.CopyFrom(data);
-            }
-            else if (data is object)
-            {
-                var expObject = ((object)data).ToExpandoObject();
-                serviceData.CopyFrom(expObject);
-            }
-
-            serviceData["entity_id"] = EntityId;
-            DaemonRxApp.CallService("input_select", "select_next", serviceData);
+            _app = app;
         }
 
-        public void SelectPrevious(dynamic? data = null)
-        {
-            var serviceData = new FluentExpandoObject();
-            if (data is ExpandoObject)
-            {
-                serviceData.CopyFrom(data);
-            }
-            else if (data is object)
-            {
-                var expObject = ((object)data).ToExpandoObject();
-                serviceData.CopyFrom(expObject);
-            }
-
-            serviceData["entity_id"] = EntityId;
-            DaemonRxApp.CallService("input_select", "select_previous", serviceData);
-        }
-
-        public void SetOptions(dynamic? data = null)
-        {
-            var serviceData = new FluentExpandoObject();
-            if (data is ExpandoObject)
-            {
-                serviceData.CopyFrom(data);
-            }
-            else if (data is object)
-            {
-                var expObject = ((object)data).ToExpandoObject();
-                serviceData.CopyFrom(expObject);
-            }
-
-            serviceData["entity_id"] = EntityId;
-            DaemonRxApp.CallService("input_select", "set_options", serviceData);
-        }
+        public SensorEntity OutdoorLight => new SensorEntity(_app, new string[]{"sensor.outdoor_light"});
+        public SensorEntity Consumption3 => new SensorEntity(_app, new string[]{"sensor.consumption_3"});
+        public SensorEntity Power4 => new SensorEntity(_app, new string[]{"sensor.power_4"});
+        public SensorEntity LightSensorBatteryLevel => new SensorEntity(_app, new string[]{"sensor.light_sensor_battery_level"});
+        public SensorEntity Hacs => new SensorEntity(_app, new string[]{"sensor.hacs"});
+        public SensorEntity Power6 => new SensorEntity(_app, new string[]{"sensor.power_6"});
+        public SensorEntity HallPirBatteryLevel => new SensorEntity(_app, new string[]{"sensor.hall_pir_battery_level"});
+        public SensorEntity Consumption5 => new SensorEntity(_app, new string[]{"sensor.consumption_5"});
     }
 
     public partial class SwitchEntities
@@ -624,49 +752,13 @@ namespace Netdaemon.Generated.Reactive
             _app = app;
         }
 
-        public SwitchEntity NetdaemonLightManager => new SwitchEntity(_app, new string[]{"switch.netdaemon_light_manager"});
         public SwitchEntity NetdaemonTv => new SwitchEntity(_app, new string[]{"switch.netdaemon_tv"});
-        public SwitchEntity VardagsrumFonsterTv => new SwitchEntity(_app, new string[]{"switch.vardagsrum_fonster_tv"});
-        public SwitchEntity NetdaemonHouseStateManager => new SwitchEntity(_app, new string[]{"switch.netdaemon_house_state_manager"});
         public SwitchEntity HallLampa => new SwitchEntity(_app, new string[]{"switch.hall_lampa"});
+        public SwitchEntity NetdaemonLightManager => new SwitchEntity(_app, new string[]{"switch.netdaemon_light_manager"});
+        public SwitchEntity VardagsrumFonsterTv => new SwitchEntity(_app, new string[]{"switch.vardagsrum_fonster_tv"});
         public SwitchEntity KokFonsterlampor => new SwitchEntity(_app, new string[]{"switch.kok_fonsterlampor"});
+        public SwitchEntity NetdaemonHouseStateManager => new SwitchEntity(_app, new string[]{"switch.netdaemon_house_state_manager"});
         public SwitchEntity NetdaemonWelcomeHome => new SwitchEntity(_app, new string[]{"switch.netdaemon_welcome_home"});
-    }
-
-    public partial class BinarySensorEntities
-    {
-        private readonly NetDaemonRxApp _app;
-        public BinarySensorEntities(NetDaemonRxApp app)
-        {
-            _app = app;
-        }
-
-        public BinarySensorEntity HallPir => new BinarySensorEntity(_app, new string[]{"binary_sensor.hall_pir"});
-        public BinarySensorEntity Updater => new BinarySensorEntity(_app, new string[]{"binary_sensor.updater"});
-    }
-
-    public partial class MediaPlayerEntities
-    {
-        private readonly NetDaemonRxApp _app;
-        public MediaPlayerEntities(NetDaemonRxApp app)
-        {
-            _app = app;
-        }
-
-        public MediaPlayerEntity TvVardagsrum => new MediaPlayerEntity(_app, new string[]{"media_player.tv_vardagsrum"});
-        public MediaPlayerEntity E32pfs640212 => new MediaPlayerEntity(_app, new string[]{"media_player.32pfs6402_12"});
-        public MediaPlayerEntity Sallskapsrum => new MediaPlayerEntity(_app, new string[]{"media_player.sallskapsrum"});
-    }
-
-    public partial class ZoneEntities
-    {
-        private readonly NetDaemonRxApp _app;
-        public ZoneEntities(NetDaemonRxApp app)
-        {
-            _app = app;
-        }
-
-        public ZoneEntity Home => new ZoneEntity(_app, new string[]{"zone.home"});
     }
 
     public partial class LightEntities
@@ -677,22 +769,25 @@ namespace Netdaemon.Generated.Reactive
             _app = app;
         }
 
-        public LightEntity HallTak2 => new LightEntity(_app, new string[]{"light.hall_tak2"});
         public LightEntity ConfigurationTool1 => new LightEntity(_app, new string[]{"light.configuration_tool_1"});
-        public LightEntity Testlampa => new LightEntity(_app, new string[]{"light.testlampa"});
         public LightEntity HallTak1 => new LightEntity(_app, new string[]{"light.hall_tak1"});
+        public LightEntity KontoretTak => new LightEntity(_app, new string[]{"light.kontoret_tak"});
+        public LightEntity MellanrummetFonster => new LightEntity(_app, new string[]{"light.mellanrummet_fonster"});
+        public LightEntity KontoretFonster => new LightEntity(_app, new string[]{"light.kontoret_fonster"});
+        public LightEntity HallTak2 => new LightEntity(_app, new string[]{"light.hall_tak2"});
+        public LightEntity MellanrummetTak => new LightEntity(_app, new string[]{"light.mellanrummet_tak"});
         public LightEntity VardagsrumFonster => new LightEntity(_app, new string[]{"light.vardagsrum_fonster"});
     }
 
-    public partial class PersonEntities
+    public partial class CameraEntities
     {
         private readonly NetDaemonRxApp _app;
-        public PersonEntities(NetDaemonRxApp app)
+        public CameraEntities(NetDaemonRxApp app)
         {
             _app = app;
         }
 
-        public PersonEntity MagnusAhling => new PersonEntity(_app, new string[]{"person.magnus_ahling"});
+        public CameraEntity VikingcamHall => new CameraEntity(_app, new string[]{"camera.vikingcam_hall"});
     }
 
     public partial class WeatherEntities
@@ -717,22 +812,6 @@ namespace Netdaemon.Generated.Reactive
         public NetdaemonEntity Status => new NetdaemonEntity(_app, new string[]{"netdaemon.status"});
     }
 
-    public partial class SensorEntities
-    {
-        private readonly NetDaemonRxApp _app;
-        public SensorEntities(NetDaemonRxApp app)
-        {
-            _app = app;
-        }
-
-        public SensorEntity Consumption3 => new SensorEntity(_app, new string[]{"sensor.consumption_3"});
-        public SensorEntity HallPirBatteryLevel => new SensorEntity(_app, new string[]{"sensor.hall_pir_battery_level"});
-        public SensorEntity Consumption5 => new SensorEntity(_app, new string[]{"sensor.consumption_5"});
-        public SensorEntity Power4 => new SensorEntity(_app, new string[]{"sensor.power_4"});
-        public SensorEntity Hacs => new SensorEntity(_app, new string[]{"sensor.hacs"});
-        public SensorEntity Power6 => new SensorEntity(_app, new string[]{"sensor.power_6"});
-    }
-
     public partial class SunEntities
     {
         private readonly NetDaemonRxApp _app;
@@ -742,6 +821,30 @@ namespace Netdaemon.Generated.Reactive
         }
 
         public SunEntity Sun => new SunEntity(_app, new string[]{"sun.sun"});
+    }
+
+    public partial class MediaPlayerEntities
+    {
+        private readonly NetDaemonRxApp _app;
+        public MediaPlayerEntities(NetDaemonRxApp app)
+        {
+            _app = app;
+        }
+
+        public MediaPlayerEntity Sallskapsrum => new MediaPlayerEntity(_app, new string[]{"media_player.sallskapsrum"});
+        public MediaPlayerEntity TvVardagsrum => new MediaPlayerEntity(_app, new string[]{"media_player.tv_vardagsrum"});
+        public MediaPlayerEntity E32pfs640212 => new MediaPlayerEntity(_app, new string[]{"media_player.32pfs6402_12"});
+    }
+
+    public partial class PersonEntities
+    {
+        private readonly NetDaemonRxApp _app;
+        public PersonEntities(NetDaemonRxApp app)
+        {
+            _app = app;
+        }
+
+        public PersonEntity MagnusAhling => new PersonEntity(_app, new string[]{"person.magnus_ahling"});
     }
 
     public partial class PersistentNotificationEntities
@@ -755,14 +858,26 @@ namespace Netdaemon.Generated.Reactive
         public PersistentNotificationEntity ConfigEntryDiscovery => new PersistentNotificationEntity(_app, new string[]{"persistent_notification.config_entry_discovery"});
     }
 
-    public partial class InputSelectEntities
+    public partial class BinarySensorEntities
     {
         private readonly NetDaemonRxApp _app;
-        public InputSelectEntities(NetDaemonRxApp app)
+        public BinarySensorEntities(NetDaemonRxApp app)
         {
             _app = app;
         }
 
-        public InputSelectEntity HouseModeSelect => new InputSelectEntity(_app, new string[]{"input_select.house_mode_select"});
+        public BinarySensorEntity Updater => new BinarySensorEntity(_app, new string[]{"binary_sensor.updater"});
+        public BinarySensorEntity HallPir => new BinarySensorEntity(_app, new string[]{"binary_sensor.hall_pir"});
+    }
+
+    public partial class ZoneEntities
+    {
+        private readonly NetDaemonRxApp _app;
+        public ZoneEntities(NetDaemonRxApp app)
+        {
+            _app = app;
+        }
+
+        public ZoneEntity Home => new ZoneEntity(_app, new string[]{"zone.home"});
     }
 }

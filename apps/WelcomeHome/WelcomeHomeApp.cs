@@ -22,7 +22,7 @@ namespace Vikingen.Home.Automations
                     {
 
                         //ToDo: Tracker och välkommen hem automation.... 
-                        //Entity("light.hall_tak1").TurnOn();
+                        //Entity("light.kontoret_fonster").TurnOff();
                         //Entity("light.hall_tak2").TurnOn();
                         //this.Tts("media_player.vardagsrum", "Hej hopp");
                         //Entity("light.testlampa").TurnOn();

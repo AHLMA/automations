@@ -15,8 +15,8 @@
 
   <ItemGroup>
     <PackageReference Include="JoySoftware.NetDaemon.App" Version="0.16.0-beta" />
-    <PackageReference Include="JoySoftware.NetDaemon.DaemonRunner" Version="0.15.0-beta" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
+    <PackageReference Include="JoySoftware.NetDaemon.DaemonRunner" Version="0.16.0-beta" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.8" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="System.Reactive" Version="4.4.1" />
   </ItemGroup>

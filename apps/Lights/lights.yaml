@@ -1,2 +1,3 @@
 light_manager:
   class: Vikingen.Home.Automations.LightManager
+  HallPir: binary_sensor.hall_pir
